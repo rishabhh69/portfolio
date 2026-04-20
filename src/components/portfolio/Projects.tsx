@@ -23,17 +23,17 @@ const ProjectCard = ({ project, index }: { project: ProjectDossier; index: numbe
   const tilt = useTilt(3);
   return (
     <div className="perspective-1200">
-      <Link
-        to={`/projects/${project.id}`}
-        ref={tilt.ref as never}
+      <div
+        ref={tilt.ref}
         onMouseMove={tilt.onMouseMove}
         onMouseLeave={tilt.onMouseLeave}
-        className="group relative block bg-background border border-border hover:border-primary/40 hover:cyan-glow transition-all duration-500 will-change-transform"
+        className="group relative bg-background border border-border hover:border-primary/40 hover:cyan-glow transition-all duration-500 will-change-transform"
         style={{
           background:
             "radial-gradient(circle at var(--mx,50%) var(--my,50%), hsl(var(--primary)/0.06), hsl(var(--background)) 60%)",
         }}
       >
+      <Link to={`/projects/${project.id}`} className="block">
         <div className="p-6 md:p-8 grid grid-cols-12 gap-6 items-center">
           <div className="col-span-1 hidden md:block">
             <span className="font-mono text-xs text-muted-foreground tabular-nums">
@@ -70,6 +70,7 @@ const ProjectCard = ({ project, index }: { project: ProjectDossier; index: numbe
           </div>
         </div>
       </Link>
+      </div>
     </div>
   );
 };
