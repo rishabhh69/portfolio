@@ -128,23 +128,9 @@ const BentoGrid = () => {
             </p>
           </TiltCard>
 
-          {/* Box 4 — Discipline */}
-          <TiltCard index={4} className="md:col-span-2">
-            <Label tag="05 · Discipline" />
-            <div className="flex items-baseline gap-3">
-              <span className="font-display text-3xl font-bold">6&apos;2&quot;</span>
-              <span className="text-muted-foreground">/</span>
-              <span className="font-display text-3xl font-bold tabular-nums">80kg</span>
-            </div>
-            <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
-              Strict bodybuilding regimen. Discipline in the gym translates 1:1
-              to discipline in the codebase.
-            </p>
-          </TiltCard>
-
           {/* Process */}
-          <TiltCard index={5} className="md:col-span-2">
-            <Label tag="06 · Process" />
+          <TiltCard index={4} className="md:col-span-4">
+            <Label tag="05 · Process" />
             <div className="font-mono text-[11px] leading-relaxed space-y-1 text-foreground/70">
               <div><span className="text-primary">$</span> wake --time 05:30</div>
               <div><span className="text-primary">$</span> lift --intensity max</div>

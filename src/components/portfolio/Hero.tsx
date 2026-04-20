@@ -61,8 +61,19 @@ const Hero = () => {
 
           <div className="mt-10 flex flex-wrap gap-3">
             <a
+              href="https://tradeky.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-center gap-3 bg-primary text-primary-foreground px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] font-bold cyan-glow-strong hover:bg-primary-glow active:scale-[0.97] transition-all"
+            >
+              <span className="absolute inset-0 border border-primary animate-ping opacity-30 pointer-events-none" />
+              <span className="size-1.5 bg-primary-foreground rounded-full animate-pulse" />
+              LIVE → tradeky.in
+              <span className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+            </a>
+            <a
               href="#projects"
-              className="group inline-flex items-center gap-3 bg-primary text-primary-foreground px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] font-bold transition-all hover:cyan-glow-strong active:scale-[0.97]"
+              className="group inline-flex items-center gap-3 border border-border-strong text-foreground px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] hover:bg-surface hover:border-primary hover:text-primary transition-all"
             >
               View Proof
               <span className="transition-transform group-hover:translate-x-1">→</span>
