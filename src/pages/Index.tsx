@@ -3,6 +3,7 @@ import BentoGrid from "@/components/portfolio/BentoGrid";
 import EarlyBaseline from "@/components/portfolio/EarlyBaseline";
 import Projects from "@/components/portfolio/Projects";
 import TechMarquee from "@/components/portfolio/TechMarquee";
+import Contact from "@/components/portfolio/Contact";
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
       <Projects />
       <EarlyBaseline />
       <TechMarquee />
+      <Contact />
     </main>
   );
 };

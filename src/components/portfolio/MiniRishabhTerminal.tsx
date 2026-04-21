@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { supabase } from "@/integrations/supabase/client";
 
 type Role = "user" | "assistant";
 interface Msg {
@@ -10,7 +11,9 @@ interface Msg {
 const INITIAL_SYSTEM_LINE =
   "System initialized. I am the digital twin of Rishabh Shukla. Ask me about my architecture, my tech stack, or my execution latency. Type a message...";
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mini-rishabh`;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+const CHAT_URL = `${SUPABASE_URL}/functions/v1/mini-rishabh`;
 
 const MiniRishabhTerminal = () => {
   const [open, setOpen] = useState(false);
@@ -61,7 +64,8 @@ const MiniRishabhTerminal = () => {
         signal: controller.signal,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          apikey: SUPABASE_KEY,
         },
         body: JSON.stringify({ messages: nextHistory }),
       });
