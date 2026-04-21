@@ -23,7 +23,7 @@ export const PROJECTS: Record<string, ProjectDossier> = {
     role: "Founder & Lead Architect",
     tag: "INSTITUTIONAL // ALGO_EXECUTION",
     short:
-      "Institutional-grade algorithmic execution platform with NLP-to-Python compilation.",
+      "NLP-to-Python compilation engine and multi-threaded AngelOne API routing for sub-50ms algorithmic execution.",
     problem:
       "90% of retail capital is lost to institutional execution arbitrage and manual latency. Professional RIAs have verified mathematical edge but lack the multi-broker architecture to scale it.",
     built: [
