@@ -133,11 +133,24 @@ const BentoGrid = () => {
           {/* Process */}
           <TiltCard index={4} className="md:col-span-4">
             <Label tag="05 · Process" />
-            <div className="font-mono text-[11px] leading-relaxed space-y-1 text-foreground/70">
-              <div><span className="text-primary">$</span> profile --target hot_path</div>
-              <div><span className="text-primary">$</span> optimize --latency p99</div>
-              <div><span className="text-primary">$</span> ship --features daily</div>
-              <div><span className="text-primary">$</span> measure --metric execution_edge</div>
+            <div className="flex flex-col h-full">
+              <div className="font-mono text-[11px] leading-relaxed space-y-1 text-foreground/70">
+                <div><span className="text-primary">$</span> profile --target hot_path</div>
+                <div><span className="text-primary">$</span> optimize --latency p99</div>
+                <div><span className="text-primary">$</span> ship --features daily</div>
+                <div><span className="text-primary">$</span> measure --metric execution_edge</div>
+              </div>
+              <a
+                href="/rishabh-shukla-cv.pdf"
+                download
+                className="group mt-6 inline-flex items-center justify-between gap-3 bg-primary text-primary-foreground px-4 py-3 font-mono text-[11px] uppercase tracking-[0.2em] font-bold cyan-glow hover:bg-primary-glow active:scale-[0.98] transition-all w-full"
+              >
+                <span className="flex items-center gap-2">
+                  <span className="size-1.5 bg-primary-foreground rounded-full animate-pulse" />
+                  Download CV
+                </span>
+                <span className="transition-transform group-hover:translate-y-0.5">↓ PDF</span>
+              </a>
             </div>
           </TiltCard>
         </div>
