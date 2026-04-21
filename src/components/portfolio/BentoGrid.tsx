@@ -141,7 +141,7 @@ const BentoGrid = () => {
                 <div><span className="text-primary">$</span> measure --metric execution_edge</div>
               </div>
               <a
-                href="/rishabh-shukla-cv.pdf"
+                href="/Rishabh_s_resume.pdf"
                 download
                 className="group mt-6 inline-flex items-center justify-between gap-3 bg-primary text-primary-foreground px-4 py-3 font-mono text-[11px] uppercase tracking-[0.2em] font-bold cyan-glow hover:bg-primary-glow active:scale-[0.98] transition-all w-full"
               >

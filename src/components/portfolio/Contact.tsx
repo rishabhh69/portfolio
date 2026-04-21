@@ -110,7 +110,7 @@ const Contact = () => {
 
             {/* CV download tile — primary cyan accent */}
             <a
-              href="/rishabh-shukla-cv.pdf"
+              href="/Rishabh_s_resume.pdf"
               download
               className="group relative bg-primary text-primary-foreground border border-primary p-5 cyan-glow-strong hover:bg-primary-glow transition-all sm:col-span-2"
             >
@@ -120,7 +120,7 @@ const Contact = () => {
                     Download · PDF
                   </div>
                   <div className="font-display text-xl font-bold">
-                    Rishabh_Shukla_CV.pdf
+                    Rishabh_s_resume.pdf
                   </div>
                 </div>
                 <span className="font-mono text-[10px] uppercase tracking-[0.25em] flex items-center gap-2">
