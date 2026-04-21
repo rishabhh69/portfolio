@@ -1,9 +1,9 @@
-import { Github, Instagram, Linkedin } from "lucide-react";
+import { Github, Linkedin, Twitter } from "lucide-react";
 
 const LINKS = [
-  { label: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/rishabhshukla" },
-  { label: "GitHub", icon: Github, href: "https://github.com/rishabh-shukla" },
-  { label: "Instagram", icon: Instagram, href: "https://instagram.com/rishabh.shukla" },
+  { label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/rishabh-shukla-70260231b/" },
+  { label: "GitHub", icon: Github, href: "https://github.com/rishabhh69" },
+  { label: "X", icon: Twitter, href: "https://x.com/rishabhh69_" },
 ];
 
 const SocialDock = () => {

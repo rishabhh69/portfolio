@@ -1,4 +1,4 @@
-import { Github, Instagram, Linkedin, Mail, Phone } from "lucide-react";
+import { Github, Linkedin, Mail, Phone, Twitter } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 
 type Channel = {
@@ -12,36 +12,36 @@ type Channel = {
 const CHANNELS: Channel[] = [
   {
     label: "LinkedIn",
-    value: "linkedin.com/in/rishabhshukla",
-    href: "https://linkedin.com/in/rishabhshukla",
+    value: "linkedin.com/in/rishabh-shukla-70260231b",
+    href: "https://www.linkedin.com/in/rishabh-shukla-70260231b/",
     icon: Linkedin,
     cmd: "open --net linkedin",
   },
   {
     label: "GitHub",
-    value: "github.com/rishabh-shukla",
-    href: "https://github.com/rishabh-shukla",
+    value: "github.com/rishabhh69",
+    href: "https://github.com/rishabhh69",
     icon: Github,
     cmd: "git clone --user rishabh",
   },
   {
-    label: "Instagram",
-    value: "instagram.com/rishabh.shukla",
-    href: "https://instagram.com/rishabh.shukla",
-    icon: Instagram,
-    cmd: "open --net instagram",
+    label: "X",
+    value: "x.com/rishabhh69_",
+    href: "https://x.com/rishabhh69_",
+    icon: Twitter,
+    cmd: "open --net x",
   },
   {
     label: "Email",
-    value: "rishabh.shukla@example.com",
-    href: "mailto:rishabh.shukla@example.com",
+    value: "rishabhshukla2510@gmail.com",
+    href: "mailto:rishabhshukla2510@gmail.com",
     icon: Mail,
     cmd: "send --priority p0",
   },
   {
     label: "Phone",
-    value: "+91 90000 00000",
-    href: "tel:+919000000000",
+    value: "+91 9918923471",
+    href: "tel:+919918923471",
     icon: Phone,
     cmd: "dial --secure",
   },
