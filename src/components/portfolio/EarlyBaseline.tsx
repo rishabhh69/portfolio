@@ -114,7 +114,7 @@ const EarlyBaseline = () => {
             index={1}
             marker="02 · Athletics"
             era="U19 ISC Basketball"
-            title="Elite Physical Discipline."
+            title="Sports and Other Activities."
             metric={
               <>
                 <span className="text-primary">Bronze</span> U19 National ·{" "}
