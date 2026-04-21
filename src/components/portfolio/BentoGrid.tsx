@@ -68,18 +68,20 @@ const BentoGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-6 auto-rows-[minmax(180px,auto)] gap-3 md:gap-4">
           {/* Box 1 — Academics */}
           <TiltCard index={0} className="md:col-span-3 md:row-span-2">
-            <Label tag="01 · Academics" />
+            <Label tag="01 · Open Source" />
             <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              The baseline:{" "}
-              <span className="text-primary tabular-nums">94.3%</span>
+              <span className="text-primary tabular-nums">200+</span>{" "}
+              GitHub contributions.
             </h3>
             <p className="text-muted-foreground leading-relaxed">
-              Perfect 100 in Computer Science in high school. Currently running a
-              full CS curriculum at <span className="text-foreground">JIIT</span>{" "}
-              as a background process while building startups in the foreground.
+              Active open-source contributor — shipping commits, reviewing PRs,
+              and maintaining infra across personal and collaborative repos.
+              Running a full CS curriculum at{" "}
+              <span className="text-foreground">JIIT</span> as a background
+              process while building startups in the foreground.
             </p>
             <div className="absolute inset-x-6 bottom-6 flex items-end justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-              <span>Sem 4 / 8</span>
+              <span>200+ COMMITS</span>
               <span>CSE · JIIT</span>
             </div>
           </TiltCard>

@@ -9,8 +9,8 @@ const Index = () => {
     <main>
       <Hero />
       <BentoGrid />
-      <EarlyBaseline />
       <Projects />
+      <EarlyBaseline />
       <TechMarquee />
     </main>
   );
