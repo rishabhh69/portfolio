@@ -23,7 +23,7 @@ export const PROJECTS: Record<string, ProjectDossier> = {
     role: "Founder & Lead Architect",
     tag: "INSTITUTIONAL // ALGO_EXECUTION",
     short:
-      "Institutional-grade algorithmic execution platform with NLP-to-Python compilation.",
+      "NLP-to-Python compilation engine and multi-threaded AngelOne API routing for sub-50ms algorithmic execution.",
     problem:
       "90% of retail capital is lost to institutional execution arbitrage and manual latency. Professional RIAs have verified mathematical edge but lack the multi-broker architecture to scale it.",
     built: [
@@ -95,22 +95,22 @@ export const PROJECTS: Record<string, ProjectDossier> = {
     index: "03",
     name: "Kyte",
     header: "Kyte — High-Concurrency Spatial Routing",
-    role: "Founder & Full-Stack Developer",
+    role: "Founder & Full-Stack",
     tag: "MOBILITY // RIDE_HAILING",
     short:
-      "Complete ride-hailing architecture with custom matching and sub-150ms geolocation.",
+      "Ride-hailing architecture managing fleet inventory and concurrent state for 500+ nodes with sub-150ms spatial querying.",
     problem:
       "Ride-hailing infrastructure requires massive concurrent state synchronization and ultra-low latency spatial querying to match supply and demand efficiently.",
     built: [
       {
         verb: "ENGINEERED",
         body:
-          "a complete ride-hailing architecture from the ground up, utilizing custom matching algorithms to manage fleet inventory.",
+          "a complete ride-hailing architecture from the ground up, utilizing custom matching algorithms to manage fleet inventory in real time.",
       },
       {
         verb: "SYNCHRONIZED",
         body:
-          "concurrent state data for 500+ simulated active nodes simultaneously.",
+          "concurrent state data for 500+ simulated active nodes simultaneously without contention or stale reads.",
       },
       {
         verb: "INTEGRATED",
@@ -118,7 +118,7 @@ export const PROJECTS: Record<string, ProjectDossier> = {
           "the Google Maps API for real-time geolocation tracking and dynamic route optimization, achieving sub-150ms spatial data querying across a 50-km geofenced radius.",
       },
     ],
-    stack: ["JavaScript (Node.js)", "Express", "MongoDB", "Google Maps API"],
+    stack: ["Node.js", "Express", "MongoDB", "Google Maps API"],
     stats: [
       { label: "Geo Query", value: "<150ms" },
       { label: "Nodes", value: "500+" },

@@ -13,7 +13,7 @@ const Hero = () => {
   const first = useScramble("Rishabh", { delay: 250, speed: 36, trigger: armed });
   const last = useScramble("Shukla.", { delay: 500, speed: 36, trigger: armed });
   const sub = useScramble(
-    "Architecting $10B financial infrastructure. Shipping code. Skipping sleep.",
+    "Architecting $10B Financial Infrastructure. Engineering Execution Edge.",
     { delay: 950, speed: 18, trigger: armed }
   );
 
@@ -105,7 +105,7 @@ const Hero = () => {
                 <Line cmd="whoami" out="rishabh.shukla // founder@tradeky" />
                 <Line cmd="cat /etc/stack" out="C++20, Python, TypeScript, FastAPI" />
                 <Line cmd="ping execution.engine" out="reply: 47ms — OK" outClass="text-primary" />
-                <Line cmd="systemctl status sleep" out="inactive (dead) since SEM_4" outClass="text-destructive/80" />
+                <Line cmd="uptime --since boot" out="execution: nominal · 99.999%" outClass="text-primary" />
                 <div className="flex gap-2 pt-1 text-primary">
                   <span>$</span>
                   <span className="cursor-blink">_</span>

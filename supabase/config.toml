@@ -1,0 +1,4 @@
+project_id = "rishabh-portfolio"
+
+[functions.mini-rishabh]
+verify_jwt = false
