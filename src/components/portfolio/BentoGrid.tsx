@@ -132,10 +132,10 @@ const BentoGrid = () => {
           <TiltCard index={4} className="md:col-span-4">
             <Label tag="05 · Process" />
             <div className="font-mono text-[11px] leading-relaxed space-y-1 text-foreground/70">
-              <div><span className="text-primary">$</span> wake --time 05:30</div>
-              <div><span className="text-primary">$</span> lift --intensity max</div>
+              <div><span className="text-primary">$</span> profile --target hot_path</div>
+              <div><span className="text-primary">$</span> optimize --latency p99</div>
               <div><span className="text-primary">$</span> ship --features daily</div>
-              <div><span className="text-primary">$</span> sleep <span className="text-destructive">--err NOT_FOUND</span></div>
+              <div><span className="text-primary">$</span> measure --metric execution_edge</div>
             </div>
           </TiltCard>
         </div>

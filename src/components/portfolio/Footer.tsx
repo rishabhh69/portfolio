@@ -7,7 +7,7 @@ const Footer = () => {
         <div>
           <div className="font-display text-3xl font-bold tracking-tight">Rishabh Shukla<span className="text-primary">.</span></div>
           <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground mt-2">
-            Quant Developer · Founder · Sleep-Skipper
+            Quant Developer · Founder · Systems Architect
           </div>
           <a
             href="https://tradeky.in"
