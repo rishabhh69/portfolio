@@ -70,7 +70,7 @@ const BentoGrid = () => {
           <TiltCard index={0} className="md:col-span-3 md:row-span-2">
             <Label tag="01 · Open Source" />
             <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              <span className="text-primary tabular-nums">200+</span>{" "}
+              <span className="text-primary tabular-nums">250+</span>{" "}
               GitHub contributions.
             </h3>
             <p className="text-muted-foreground leading-relaxed">
