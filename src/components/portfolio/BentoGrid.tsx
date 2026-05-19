@@ -81,7 +81,7 @@ const BentoGrid = () => {
               process while building startups in the foreground.
             </p>
             <div className="absolute inset-x-6 bottom-6 flex items-end justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-              <span>200+ COMMITS</span>
+              <span>250+ COMMITS</span>
               <span>CSE · JIIT</span>
             </div>
           </TiltCard>
