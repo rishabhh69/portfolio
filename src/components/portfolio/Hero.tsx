@@ -89,28 +89,38 @@ const Hero = () => {
 
         {/* Right: terminal preview */}
         <div className="col-span-12 lg:col-span-4">
-          <div className="bg-surface/60 border border-border p-1 cyan-glow">
-            <div className="bg-background border border-border p-4">
-              <div className="flex justify-between items-center mb-4">
-                <div className="flex gap-1.5">
-                  <span className="size-2 rounded-full bg-destructive/60" />
-                  <span className="size-2 rounded-full bg-terminal-amber/60" />
-                  <span className="size-2 rounded-full bg-terminal-green/60" />
-                </div>
-                <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-                  ~/rishabh — zsh
+          <div className="relative bg-surface/60 border border-border p-1 cyan-glow overflow-hidden">
+            <div className="relative bg-background border border-border aspect-[4/5] overflow-hidden">
+              <video
+                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ objectPosition: "70% center", filter: "contrast(1.05) saturate(0.9)" }}
+              />
+              {/* Cyan tint + scanlines */}
+              <div className="absolute inset-0 pointer-events-none mix-blend-color" style={{ background: "hsl(187 100% 50% / 0.18)" }} />
+              <div className="absolute inset-0 pointer-events-none scanline" />
+              {/* HUD frame */}
+              <div className="absolute top-2 left-2 right-2 flex justify-between items-center font-mono text-[9px] uppercase tracking-[0.25em] text-primary">
+                <span className="flex items-center gap-1.5">
+                  <span className="size-1.5 rounded-full bg-primary animate-pulse" />
+                  A.R.I.A · online
                 </span>
+                <span className="text-foreground/50">v2.1.0</span>
               </div>
-              <div className="font-mono text-[11px] leading-relaxed space-y-1.5">
-                <Line cmd="whoami" out="rishabh.shukla // founder@tradeky" />
-                <Line cmd="cat /etc/stack" out="C++20, Python, TypeScript, FastAPI" />
-                <Line cmd="ping execution.engine" out="reply: 47ms — OK" outClass="text-primary" />
-                <Line cmd="uptime --since boot" out="execution: nominal · 99.999%" outClass="text-primary" />
-                <div className="flex gap-2 pt-1 text-primary">
-                  <span>$</span>
-                  <span className="cursor-blink">_</span>
-                </div>
+              <div className="absolute bottom-2 left-2 right-2 flex justify-between items-end font-mono text-[9px] uppercase tracking-[0.25em] text-foreground/60">
+                <span>adaptive_response_interface</span>
+                <span className="text-primary">◉ rec</span>
               </div>
+              {/* Corner brackets */}
+              <span className="absolute top-0 left-0 w-4 h-4 border-l border-t border-primary" />
+              <span className="absolute top-0 right-0 w-4 h-4 border-r border-t border-primary" />
+              <span className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-primary" />
+              <span className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-primary" />
             </div>
           </div>
 
@@ -125,13 +135,6 @@ const Hero = () => {
     </section>
   );
 };
-
-const Line = ({ cmd, out, outClass = "text-foreground/60" }: { cmd: string; out: string; outClass?: string }) => (
-  <div>
-    <div className="text-primary">$ <span className="text-foreground/90">{cmd}</span></div>
-    <div className={`pl-3 ${outClass}`}>{out}</div>
-  </div>
-);
 
 const Stat = ({ label, value }: { label: string; value: string }) => (
   <div className="bg-background p-3">
