@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ParticleNetwork from "./ParticleNetwork";
 import { useScramble } from "@/hooks/useScramble";
 
@@ -7,6 +7,41 @@ const Hero = () => {
   useEffect(() => {
     const t = setTimeout(() => setArmed(true), 80);
     return () => clearTimeout(t);
+  }, []);
+
+  // Robot head tracking — shift video object-position based on cursor
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    let raf = 0;
+    let tx = 70, ty = 35; // current %
+    let targetX = 70, targetY = 35;
+    const onMove = (e: MouseEvent) => {
+      const el = frameRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const nx = Math.max(-1, Math.min(1, (e.clientX - cx) / (window.innerWidth / 2)));
+      const ny = Math.max(-1, Math.min(1, (e.clientY - cy) / (window.innerHeight / 2)));
+      // Map cursor into a small object-position window around the head
+      targetX = 70 + nx * 12;
+      targetY = 30 + ny * 10;
+    };
+    const tick = () => {
+      tx += (targetX - tx) * 0.08;
+      ty += (targetY - ty) * 0.08;
+      if (videoRef.current) {
+        videoRef.current.style.objectPosition = `${tx}% ${ty}%`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    window.addEventListener("mousemove", onMove);
+    raf = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   const tag = useScramble("ARCHITECT // FOUNDER // QUANT_DEV", { delay: 100, trigger: armed });
@@ -31,9 +66,9 @@ const Hero = () => {
             "radial-gradient(ellipse at 50% 30%, transparent 0%, hsl(var(--background)) 80%)",
         }}
       />
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-12 gap-8 lg:gap-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-12 gap-8 lg:gap-10 items-center">
         {/* Left: headline */}
-        <div className="col-span-12 lg:col-span-8">
+        <div className="col-span-12 lg:col-span-7">
           <div className="inline-flex items-center gap-3 mb-6">
             <span className="h-px w-10 bg-primary" />
             <span className="font-mono text-[11px] tracking-[0.3em] text-primary uppercase">
@@ -88,18 +123,19 @@ const Hero = () => {
         </div>
 
         {/* Right: terminal preview */}
-        <div className="col-span-12 lg:col-span-4">
-          <div className="relative bg-surface/60 border border-border p-1 cyan-glow overflow-hidden">
-            <div className="relative bg-background border border-border aspect-[4/5] overflow-hidden">
+        <div className="col-span-12 lg:col-span-5">
+          <div className="relative bg-surface/60 border border-border p-1 cyan-glow-strong overflow-hidden">
+            <div ref={frameRef} className="relative bg-background border border-border aspect-[3/4] lg:aspect-[4/5] overflow-hidden">
               <video
+                ref={videoRef}
                 src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4"
                 autoPlay
                 loop
                 muted
                 playsInline
                 preload="auto"
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: "70% center", filter: "contrast(1.05) saturate(0.9)" }}
+                className="absolute inset-0 h-full w-full object-cover scale-110"
+                style={{ objectPosition: "70% 30%", filter: "contrast(1.05) saturate(0.9)" }}
               />
               {/* Cyan tint + scanlines */}
               <div className="absolute inset-0 pointer-events-none mix-blend-color" style={{ background: "hsl(187 100% 50% / 0.18)" }} />
@@ -123,26 +159,10 @@ const Hero = () => {
               <span className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-primary" />
             </div>
           </div>
-
-          <div className="mt-4 grid grid-cols-2 gap-px bg-border border border-border">
-            <Stat label="Exec Latency" value="<50ms" />
-            <Stat label="Geoloc Query" value="<150ms" />
-            <Stat label="Chess ELO" value="1420+" />
-            <Stat label="High School" value="94.3%" />
-          </div>
         </div>
       </div>
     </section>
   );
 };
-
-const Stat = ({ label, value }: { label: string; value: string }) => (
-  <div className="bg-background p-3">
-    <div className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground mb-1">
-      {label}
-    </div>
-    <div className="font-mono text-base text-foreground tabular-nums">{value}</div>
-  </div>
-);
 
 export default Hero;
