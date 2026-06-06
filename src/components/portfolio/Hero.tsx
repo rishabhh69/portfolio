@@ -10,9 +10,9 @@ const Hero = () => {
   }, []);
 
   const frameRef = useRef<HTMLDivElement | null>(null);
-  const headRef = useRef<SVGGElement | null>(null);
-  const leftPupilRef = useRef<SVGCircleElement | null>(null);
-  const rightPupilRef = useRef<SVGCircleElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const leftPupilRef = useRef<HTMLDivElement | null>(null);
+  const rightPupilRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     let raf = 0;
     let x = 0;
@@ -24,20 +24,21 @@ const Hero = () => {
       if (!el) return;
       const r = el.getBoundingClientRect();
       const cx = r.left + r.width / 2;
-      const cy = r.top + r.height * 0.34;
-      targetX = Math.max(-1, Math.min(1, (e.clientX - cx) / (r.width * 0.55)));
-      targetY = Math.max(-1, Math.min(1, (e.clientY - cy) / (r.height * 0.45)));
+      const cy = r.top + r.height * 0.30;
+      targetX = Math.max(-1, Math.min(1, (e.clientX - cx) / (window.innerWidth * 0.5)));
+      targetY = Math.max(-1, Math.min(1, (e.clientY - cy) / (window.innerHeight * 0.5)));
     };
     const tick = () => {
       x += (targetX - x) * 0.12;
       y += (targetY - y) * 0.12;
-      if (headRef.current) {
-        headRef.current.style.transform = `translate(${x * 14}px, ${y * 9}px) rotate(${x * 5}deg)`;
+      // Subtle "head turn" — slight 3D tilt of the whole robot video
+      if (videoRef.current) {
+        videoRef.current.style.transform = `scale(1.1) perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 4}deg)`;
       }
       if (leftPupilRef.current && rightPupilRef.current) {
-        const pupilTransform = `translate(${x * 10}px, ${y * 7}px)`;
-        leftPupilRef.current.style.transform = pupilTransform;
-        rightPupilRef.current.style.transform = pupilTransform;
+        const t = `translate(calc(-50% + ${x * 5}px), calc(-50% + ${y * 5}px))`;
+        leftPupilRef.current.style.transform = t;
+        rightPupilRef.current.style.transform = t;
       }
       raf = requestAnimationFrame(tick);
     };
