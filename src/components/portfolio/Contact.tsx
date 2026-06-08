@@ -1,139 +1,76 @@
-import { Github, Linkedin, Mail, Phone, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 
-type Channel = {
-  label: string;
-  value: string;
-  href: string;
-  icon: typeof Linkedin;
-  cmd: string;
-};
-
-const CHANNELS: Channel[] = [
-  {
-    label: "LinkedIn",
-    value: "linkedin.com/in/rishabh-shukla-70260231b",
-    href: "https://www.linkedin.com/in/rishabh-shukla-70260231b/",
-    icon: Linkedin,
-    cmd: "open --net linkedin",
-  },
-  {
-    label: "GitHub",
-    value: "github.com/rishabhh69",
-    href: "https://github.com/rishabhh69",
-    icon: Github,
-    cmd: "git clone --user rishabh",
-  },
-  {
-    label: "X",
-    value: "x.com/rishabhh69_",
-    href: "https://x.com/rishabhh69_",
-    icon: Twitter,
-    cmd: "open --net x",
-  },
-  {
-    label: "Email",
-    value: "rishabhshukla2510@gmail.com",
-    href: "mailto:rishabhshukla2510@gmail.com",
-    icon: Mail,
-    cmd: "send --priority p0",
-  },
-  {
-    label: "Phone",
-    value: "+91 9918923471",
-    href: "tel:+919918923471",
-    icon: Phone,
-    cmd: "dial --secure",
-  },
+const CHANNELS = [
+  { label: "Email", value: "rishabhshukla2510@gmail.com", href: "mailto:rishabhshukla2510@gmail.com", icon: Mail },
+  { label: "LinkedIn", value: "linkedin.com/in/rishabh-shukla-70260231b", href: "https://www.linkedin.com/in/rishabh-shukla-70260231b/", icon: Linkedin },
+  { label: "GitHub", value: "github.com/rishabhh69", href: "https://github.com/rishabhh69", icon: Github },
+  { label: "X", value: "x.com/rishabhh69_", href: "https://x.com/rishabhh69_", icon: Twitter },
 ];
 
-const Contact = () => {
-  return (
-    <section id="contact" className="relative py-24 md:py-32 px-6 border-t border-border">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeader index="05" eyebrow="Contact / Direct Line" title="Open a Channel." />
+const Contact = () => (
+  <section id="contact" className="relative py-28 md:py-40 px-6 md:px-8 border-t border-border">
+    <div className="max-w-7xl mx-auto grid grid-cols-12 gap-10">
+      <div className="col-span-12 lg:col-span-7">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase">05 · Contact</span>
+          <span className="h-px w-24 bg-gold" />
+        </div>
+        <h2 className="font-serif text-4xl md:text-6xl font-bold tracking-[-0.015em] text-foreground leading-[1.05] max-w-3xl">
+          Let's build something
+          <span className="italic text-primary"> serious.</span>
+        </h2>
+        <p className="mt-7 max-w-xl text-lg text-muted-foreground leading-relaxed">
+          I'm open to elite engineering roles, founder collaborations, and consulting on
+          execution infrastructure. Response time is typically under 24 hours.
+        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          {/* Left: terminal-style intro */}
-          <div className="md:col-span-5 bg-surface border border-border p-6 md:p-8 cyan-glow">
-            <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary mb-4">
-              {">"} status_check
-            </div>
-            <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight leading-tight">
-              Available for elite roles, founder collabs, and quant infra.
-            </h3>
-            <p className="mt-5 text-muted-foreground text-sm leading-relaxed">
-              I respond fastest on LinkedIn and email. Phone is reserved for
-              high-priority signals.
-            </p>
-
-            <div className="mt-8 font-mono text-[11px] leading-relaxed space-y-1 text-foreground/70">
-              <div><span className="text-primary">$</span> location → Bengaluru, IN</div>
-              <div><span className="text-primary">$</span> timezone → IST (UTC+5:30)</div>
-              <div><span className="text-primary">$</span> response_p99 → &lt; 24h</div>
-              <div className="flex gap-2 pt-1 text-primary">
-                <span>$</span><span className="cursor-blink">_</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: channel grid */}
-          <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {CHANNELS.map(({ label, value, href, icon: Icon, cmd }, i) => (
-              <a
-                key={label}
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="group relative bg-surface/40 border border-border hover:border-primary p-5 transition-all hover:cyan-glow"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="size-10 grid place-items-center border border-border group-hover:border-primary/60 transition-colors">
-                    <Icon className="size-4 text-foreground/70 group-hover:text-primary transition-colors" strokeWidth={1.5} />
-                  </div>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground tabular-nums">
-                    0{i + 1}
-                  </span>
-                </div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary mb-1">
-                  {label}
-                </div>
-                <div className="font-mono text-sm text-foreground break-all">
-                  {value}
-                </div>
-                <div className="mt-4 flex items-center justify-between font-mono text-[10px] text-muted-foreground">
-                  <span>$ {cmd}</span>
-                  <span className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-primary">↗</span>
-                </div>
-              </a>
-            ))}
-
-            {/* CV download tile — primary cyan accent */}
-            <a
-              href="/Rishabh_s_resume.pdf"
-              download
-              className="group relative bg-primary text-primary-foreground border border-primary p-5 cyan-glow-strong hover:bg-primary-glow transition-all sm:col-span-2"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="font-mono text-[10px] uppercase tracking-[0.25em] mb-1 opacity-80">
-                    Download · PDF
-                  </div>
-                  <div className="font-display text-xl font-bold">
-                    Rishabh_s_resume.pdf
-                  </div>
-                </div>
-                <span className="font-mono text-[10px] uppercase tracking-[0.25em] flex items-center gap-2">
-                  <span className="size-1.5 bg-primary-foreground rounded-full animate-pulse" />
-                  GET → ↓
-                </span>
-              </div>
-            </a>
-          </div>
+        <div className="mt-10 flex flex-wrap gap-4">
+          <a
+            href="mailto:rishabhshukla2510@gmail.com"
+            className="group inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 text-sm font-medium tracking-tight hover:bg-primary-glow transition-colors"
+          >
+            Email me directly <span className="transition-transform group-hover:translate-x-1">→</span>
+          </a>
+          <a
+            href="/rishabh-shukla-cv.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 border border-border-strong text-foreground px-6 py-3.5 text-sm font-medium tracking-tight hover:border-primary hover:text-primary transition-colors"
+          >
+            Download résumé <span>↗</span>
+          </a>
         </div>
       </div>
-    </section>
-  );
-};
+
+      <div className="col-span-12 lg:col-span-5">
+        <div className="bg-card border border-border shadow-soft divide-y divide-border">
+          {CHANNELS.map(({ label, value, href, icon: Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="flex items-center gap-5 p-5 group hover:bg-background transition-colors"
+            >
+              <div className="size-10 grid place-items-center border border-border bg-background group-hover:border-primary transition-colors">
+                <Icon className="size-4 text-foreground/70 group-hover:text-primary transition-colors" strokeWidth={1.5} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-mono">{label}</div>
+                <div className="text-sm text-foreground truncate mt-0.5">{value}</div>
+              </div>
+              <span className="text-gold transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+            </a>
+          ))}
+        </div>
+        <div className="mt-5 text-[11px] uppercase tracking-[0.25em] text-muted-foreground font-mono flex items-center gap-2">
+          <span className="size-1.5 rounded-full bg-primary animate-pulse" />
+          Bengaluru, IN · IST (UTC+5:30)
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 export default Contact;

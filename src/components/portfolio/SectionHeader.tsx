@@ -1,45 +1,27 @@
-import { useScramble } from "@/hooks/useScramble";
-import { useEffect, useRef, useState } from "react";
-
 interface Props {
   index: string;
   eyebrow: string;
   title: string;
+  kicker?: string;
 }
 
-const SectionHeader = ({ index, eyebrow, title }: Props) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => e.isIntersecting && setVisible(true),
-      { threshold: 0.3 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  const t = useScramble(title, { trigger: visible, speed: 24 });
-
-  return (
-    <div ref={ref} className="mb-12 md:mb-16 flex items-end justify-between gap-6 border-b border-border pb-6">
-      <div>
-        <div className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-3">
-          {index} · {eyebrow}
-        </div>
-        <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight">
-          {visible ? t : title}
-        </h2>
-      </div>
-      <div className="hidden md:flex items-center gap-2 font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-        <span className="size-1.5 bg-primary rounded-full animate-pulse" />
-        loaded
-      </div>
+const SectionHeader = ({ index, eyebrow, title, kicker }: Props) => (
+  <div className="mb-14 md:mb-20">
+    <div className="flex items-center gap-3 mb-5">
+      <span className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase">
+        {index} · {eyebrow}
+      </span>
+      <span className="h-px flex-1 max-w-[140px] bg-gold/70" />
     </div>
-  );
-};
+    <h2 className="font-serif text-4xl md:text-6xl font-bold tracking-[-0.015em] text-foreground max-w-3xl leading-[1.05]">
+      {title}
+    </h2>
+    {kicker && (
+      <p className="mt-5 max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+        {kicker}
+      </p>
+    )}
+  </div>
+);
 
 export default SectionHeader;
