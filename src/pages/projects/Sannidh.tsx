@@ -1,6 +1,6 @@
 import ProjectLayout from "@/components/portfolio/ProjectLayout";
 import { PROJECTS } from "@/data/projects";
 
-const RegulonPage = () => <ProjectLayout dossier={PROJECTS.regulon} />;
+const SannidhPage = () => <ProjectLayout dossier={PROJECTS.sannidh} />;
 
-export default RegulonPage;
+export default SannidhPage;
