@@ -1,17 +1,24 @@
 import { Link } from "react-router-dom";
 import SectionHeader from "./SectionHeader";
-import { useTilt } from "@/hooks/useTilt";
 import { PROJECT_LIST, type ProjectDossier } from "@/data/projects";
 
 const Projects = () => {
+  const [featured, ...rest] = PROJECT_LIST;
   return (
-    <section id="projects" className="relative py-24 md:py-32 px-6 bg-surface/30 border-y border-border">
+    <section id="work" className="relative py-24 md:py-32 px-6 md:px-8 border-t border-border">
       <div className="max-w-7xl mx-auto">
-        <SectionHeader index="02" eyebrow="Experience / The Proof" title="Built. Shipped. Compounding." />
+        <SectionHeader
+          index="01"
+          eyebrow="Selected Work"
+          title="Production systems, shipped and running."
+          kicker="A small set of projects I've designed, built, and operated end-to-end — focused on infrastructure that handles real users, real capital, or real regulatory weight."
+        />
 
-        <div className="space-y-3">
-          {PROJECT_LIST.map((p, i) => (
-            <ProjectCard key={p.id} project={p} index={i} />
+        <FeaturedCard project={featured} />
+
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {rest.map((p, i) => (
+            <ProjectCard key={p.id} project={p} index={i + 1} />
           ))}
         </div>
       </div>
@@ -19,60 +26,91 @@ const Projects = () => {
   );
 };
 
-const ProjectCard = ({ project, index }: { project: ProjectDossier; index: number }) => {
-  const tilt = useTilt(3);
-  return (
-    <div className="perspective-1200">
-      <div
-        ref={tilt.ref}
-        onMouseMove={tilt.onMouseMove}
-        onMouseLeave={tilt.onMouseLeave}
-        className="group relative bg-background border border-border hover:border-primary/40 hover:cyan-glow transition-all duration-500 will-change-transform"
-        style={{
-          background:
-            "radial-gradient(circle at var(--mx,50%) var(--my,50%), hsl(var(--primary)/0.06), hsl(var(--background)) 60%)",
-        }}
-      >
-      <Link to={`/projects/${project.id}`} className="block">
-        <div className="p-6 md:p-8 grid grid-cols-12 gap-6 items-center">
-          <div className="col-span-1 hidden md:block">
-            <span className="font-mono text-xs text-muted-foreground tabular-nums">
-              0{index + 1}
-            </span>
-          </div>
-          <div className="col-span-12 md:col-span-7">
-            <div className="font-mono text-[10px] tracking-[0.25em] text-primary uppercase mb-2">
-              {project.tag}
-            </div>
-            <h3 className="font-display text-3xl md:text-5xl font-bold tracking-tight group-hover:text-primary transition-colors">
-              {project.name}
-              <span className="text-foreground/30 text-xl md:text-2xl font-light ml-3">
-                / {project.role}
-              </span>
-            </h3>
-            <p className="mt-3 text-muted-foreground max-w-2xl">{project.short}</p>
-            <div className="mt-4 flex flex-wrap gap-1.5">
-              {project.stack.slice(0, 5).map((s) => (
-                <span
-                  key={s}
-                  className="font-mono text-[9px] uppercase tracking-[0.2em] border border-border px-2 py-1 text-foreground/60"
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="col-span-12 md:col-span-4 flex md:justify-end">
-            <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest border border-border-strong px-4 py-2 text-foreground/70 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all">
-              Open Dossier
-              <span className="transition-transform group-hover:translate-x-1">→</span>
-            </span>
-          </div>
+const FeaturedCard = ({ project }: { project: ProjectDossier }) => (
+  <Link
+    to={`/projects/${project.id}`}
+    className="group block bg-card border border-border shadow-soft hover:shadow-elevated hover:border-primary/40 transition-all"
+  >
+    <div className="grid grid-cols-12 gap-0">
+      <div className="col-span-12 lg:col-span-7 p-8 md:p-12">
+        <div className="flex items-center gap-3 mb-5">
+          <span className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase">
+            Featured · {project.index}
+          </span>
+          <span className="h-px w-10 bg-gold" />
         </div>
-      </Link>
+        <h3 className="font-serif text-4xl md:text-5xl font-bold tracking-[-0.015em] text-foreground group-hover:text-primary transition-colors leading-[1.05]">
+          {project.name}
+        </h3>
+        <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground mt-3">
+          {project.role}
+        </div>
+        <div className="gold-rule mt-7 w-20" />
+        <p className="mt-6 text-foreground/80 leading-relaxed max-w-xl">
+          {project.short}
+        </p>
+        <div className="mt-7 flex flex-wrap gap-1.5">
+          {project.stack.slice(0, 6).map((s) => (
+            <span key={s} className="text-[11px] border border-border px-2.5 py-1 text-foreground/70 bg-background">
+              {s}
+            </span>
+          ))}
+        </div>
+        <div className="mt-8 inline-flex items-center gap-2 text-sm text-primary font-medium group-hover:gap-3 transition-all">
+          Read case study <span>→</span>
+        </div>
+      </div>
+      <div className="col-span-12 lg:col-span-5 border-t lg:border-t-0 lg:border-l border-border bg-surface/60 p-8 md:p-12 grid grid-cols-2 gap-px bg-border">
+        {project.stats.map((s) => (
+          <div key={s.label} className="bg-surface/60 p-5">
+            <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-mono">{s.label}</div>
+            <div className="mt-3 font-serif text-2xl md:text-3xl font-bold text-primary">{s.value}</div>
+          </div>
+        ))}
+        {project.link && (
+          <div className="col-span-2 bg-surface/60 p-5 flex items-center justify-between">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground font-mono">Live</span>
+            <span className="text-sm text-primary">{project.link.label} ↗</span>
+          </div>
+        )}
       </div>
     </div>
-  );
-};
+  </Link>
+);
+
+const ProjectCard = ({ project, index }: { project: ProjectDossier; index: number }) => (
+  <Link
+    to={`/projects/${project.id}`}
+    className="group block bg-card border border-border shadow-soft hover:shadow-elevated hover:border-primary/40 transition-all p-7 md:p-8"
+  >
+    <div className="flex items-center justify-between mb-5">
+      <span className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase">
+        0{index + 1} · {project.tag}
+      </span>
+      <span className="text-gold text-sm opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+    </div>
+    <h3 className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">
+      {project.name}
+    </h3>
+    <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground mt-2">
+      {project.role}
+    </div>
+    <p className="mt-5 text-foreground/75 text-[15px] leading-relaxed">
+      {project.short}
+    </p>
+    <div className="mt-6 flex flex-wrap gap-1.5">
+      {project.stack.slice(0, 5).map((s) => (
+        <span key={s} className="text-[11px] border border-border px-2 py-0.5 text-foreground/65">
+          {s}
+        </span>
+      ))}
+    </div>
+    {project.link && (
+      <div className="mt-6 pt-5 border-t border-border text-sm text-primary">
+        {project.link.label} <span className="text-gold">↗</span>
+      </div>
+    )}
+  </Link>
+);
 
 export default Projects;
