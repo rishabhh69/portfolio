@@ -17,6 +17,9 @@ const Hero = () => {
     let targetTime = 0;
     let seeking = false;
     let ready = false;
+    let ty = 0; // current vertical tilt (deg)
+    let targetTy = 0;
+    let rafId = 0;
     const onMeta = () => {
       if (!video.duration || !isFinite(video.duration)) return;
       ready = true;
@@ -33,6 +36,11 @@ const Hero = () => {
       seeking = false;
       if (Math.abs(video.currentTime - targetTime) > 0.01) seekIfNeeded();
     };
+    const tick = () => {
+      ty += (targetTy - ty) * 0.12;
+      video.style.transform = `scale(1.08) translateY(${ty * 0.6}%) perspective(900px) rotateX(${-ty}deg)`;
+      rafId = requestAnimationFrame(tick);
+    };
     const onMove = (e: MouseEvent) => {
       if (!ready || !video.duration) return;
       // Cursor X across viewport scrubs the head-turn timeline so the
@@ -40,15 +48,20 @@ const Hero = () => {
       const t = Math.max(0, Math.min(1, e.clientX / window.innerWidth));
       targetTime = t * video.duration;
       seekIfNeeded();
+      // Cursor Y → vertical head tilt (up/down)
+      const y = Math.max(0, Math.min(1, e.clientY / window.innerHeight));
+      targetTy = (y - 0.5) * 18; // ±9deg
     };
     video.addEventListener("loadedmetadata", onMeta);
     video.addEventListener("seeked", onSeeked);
     window.addEventListener("mousemove", onMove);
     if (video.readyState >= 1) onMeta();
+    rafId = requestAnimationFrame(tick);
     return () => {
       video.removeEventListener("loadedmetadata", onMeta);
       video.removeEventListener("seeked", onSeeked);
       window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -139,7 +152,7 @@ const Hero = () => {
                 preload="auto"
                 crossOrigin="anonymous"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: "70% center", transform: "scale(1.08)" }}
+                style={{ objectPosition: "70% center", transform: "scale(1.08)", transformOrigin: "50% 35%", willChange: "transform" }}
               />
               {/* Cyan tint */}
               <div className="absolute inset-0 pointer-events-none mix-blend-color" style={{ background: "hsl(187 100% 50% / 0.18)" }} />
