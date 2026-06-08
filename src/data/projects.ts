@@ -1,5 +1,5 @@
 export interface ProjectDossier {
-  id: "tradeky" | "regulon" | "kyte";
+  id: "tradeky" | "sannidh" | "kyte";
   index: string;
   name: string;
   header: string;
@@ -11,7 +11,7 @@ export interface ProjectDossier {
   stack: string[];
   stats: { label: string; value: string }[];
   link?: { label: string; href: string };
-  next: "tradeky" | "regulon" | "kyte";
+  next: "tradeky" | "sannidh" | "kyte";
 }
 
 export const PROJECTS: Record<string, ProjectDossier> = {
@@ -19,75 +19,76 @@ export const PROJECTS: Record<string, ProjectDossier> = {
     id: "tradeky",
     index: "01",
     name: "TradeKy",
-    header: "TradeKy — The Operating System for Modern Traders & RIAs",
+    header: "TradeKy — Execution Infrastructure for Modern RIAs",
     role: "Founder & Lead Architect",
-    tag: "INSTITUTIONAL // ALGO_EXECUTION",
+    tag: "Capital Markets · Algorithmic Execution",
     short:
-      "NLP-to-Python compilation engine and multi-threaded AngelOne API routing for sub-50ms algorithmic execution.",
+      "An NLP-to-Python compilation engine paired with multi-broker, multi-tenant order routing — built for Registered Investment Advisors who need to scale verified strategies across hundreds of client accounts.",
     problem:
-      "90% of retail capital is lost to institutional execution arbitrage and manual latency. Professional RIAs have verified mathematical edge but lack the multi-broker architecture to scale it.",
+      "Professional advisors have verified mathematical edge but lack the multi-broker, low-latency infrastructure to deploy it across many client accounts simultaneously. Manual execution introduces latency, slippage, and operational risk.",
     built: [
       {
-        verb: "ARCHITECTED",
+        verb: "Architected",
         body:
-          "the core NLP-to-Python compilation engine, instantly translating unstructured plain-English logic into rigorous, executable trading algorithms.",
+          "the core NLP-to-Python compilation engine that translates plain-English strategy descriptions into rigorous, executable trading algorithms with deterministic semantics.",
       },
       {
-        verb: "ENGINEERED",
+        verb: "Engineered",
         body:
-          "a dual-state deployment environment for high-fidelity paper trading validation and live-market execution.",
+          "a dual-state deployment environment for high-fidelity paper trading validation and live-market execution under one unified runtime.",
       },
       {
-        verb: "BUILT",
+        verb: "Built",
         body:
-          "a multi-tenant webhook architecture and asynchronous routing pipeline integrating directly with AngelOne APIs, enabling RIAs to broadcast single execution signals across hundreds of client accounts simultaneously with sub-50ms latency.",
+          "a multi-tenant webhook architecture and asynchronous routing pipeline integrated with the AngelOne SmartAPI, broadcasting a single execution signal across hundreds of client accounts with sub-50ms latency.",
       },
     ],
     stack: ["Python", "C++", "FastAPI", "AngelOne SmartAPI", "NLP/LLMs", "Pandas", "NumPy"],
     stats: [
-      { label: "Exec", value: "<50ms" },
-      { label: "Broker", value: "AngelOne" },
-      { label: "Mode", value: "Paper+Live" },
-      { label: "Tenancy", value: "Multi" },
+      { label: "Execution latency", value: "<50ms" },
+      { label: "Broker integration", value: "AngelOne" },
+      { label: "Runtime modes", value: "Paper + Live" },
+      { label: "Architecture", value: "Multi-tenant" },
     ],
     link: { label: "tradeky.in", href: "https://tradeky.in" },
-    next: "regulon",
+    next: "sannidh",
   },
-  regulon: {
-    id: "regulon",
+  sannidh: {
+    id: "sannidh",
     index: "02",
-    name: "Regulon",
-    header: "Regulon — Zero-Leakage Regulatory Intelligence",
+    name: "Sannidh",
+    header: "Sannidh — Regulatory Intelligence Platform",
     role: "Backend & Systems Architect",
-    tag: "DATA // GOV_INTELLIGENCE",
+    tag: "Regulatory Data · Secure Backends",
     short:
-      "Distributed extraction pipelines parsing unstructured government portals at scale.",
+      "A secure regulatory intelligence platform with distributed extraction pipelines, hardened APIs, and role-based access for institutions that depend on accurate government data.",
     problem:
-      "Financial institutions struggle with massive, unstructured data flows from disparate government portals, requiring secure, automated extraction and strict role-based access.",
+      "Financial and legal institutions must reconcile high-volume, unstructured updates from disparate government portals while meeting strict requirements around access control, audit, and data integrity.",
     built: [
       {
-        verb: "CONSTRUCTED",
+        verb: "Constructed",
         body:
-          "a distributed data-extraction pipeline using Node.js and Cheerio, orchestrating 12 cron-scheduled jobs to scrape and parse unstructured regulatory updates from 7 government portals with custom retry/backoff logic.",
+          "a distributed extraction pipeline in Node.js and Cheerio, orchestrating 12 cron-scheduled jobs that parse regulatory updates from 7 government portals with custom retry and back-off logic.",
       },
       {
-        verb: "ARCHITECTED",
+        verb: "Architected",
         body:
-          "the Supabase/PostgreSQL backend, configuring 40+ REST API endpoints with hardened security middleware (Helmet, JWT) to ensure zero-leakage processing of sensitive records.",
+          "a PostgreSQL backend with 40+ REST endpoints and hardened middleware (Helmet, JWT) to ensure end-to-end secure processing of sensitive regulatory records.",
       },
       {
-        verb: "BUILT",
+        verb: "Built",
         body:
-          "a React/TypeScript SPA managing secure state synchronization and strict role-based access control across 5 distinct user personas using TanStack Query.",
+          "a React + TypeScript SPA managing secure state synchronization and strict role-based access across 5 distinct user personas, using TanStack Query for predictable server state.",
       },
     ],
-    stack: ["TypeScript", "Express.js", "Supabase (PostgreSQL)", "React", "Deno", "TanStack Query", "Node.js", "Cheerio"],
+    stack: ["TypeScript", "Express.js", "PostgreSQL", "React", "Deno", "TanStack Query", "Node.js", "Cheerio"],
     stats: [
       { label: "Portals", value: "7" },
       { label: "Cron Jobs", value: "12" },
-      { label: "Endpoints", value: "40+" },
-      { label: "Personas", value: "5" },
+      { label: "API Endpoints", value: "40+" },
+      { label: "User Roles", value: "5" },
     ],
+    link: { label: "sannidh.in", href: "https://www.sannidh.in" },
     next: "kyte",
   },
   kyte: {
@@ -96,34 +97,34 @@ export const PROJECTS: Record<string, ProjectDossier> = {
     name: "Kyte",
     header: "Kyte — High-Concurrency Spatial Routing",
     role: "Founder & Full-Stack",
-    tag: "MOBILITY // RIDE_HAILING",
+    tag: "Urban Mobility · Real-Time Systems",
     short:
-      "Ride-hailing architecture managing fleet inventory and concurrent state for 500+ nodes with sub-150ms spatial querying.",
+      "A ride-hailing architecture managing fleet inventory and concurrent state for 500+ active nodes, with sub-150ms spatial querying across a 50-km geofenced radius.",
     problem:
-      "Ride-hailing infrastructure requires massive concurrent state synchronization and ultra-low latency spatial querying to match supply and demand efficiently.",
+      "Ride-hailing infrastructure requires massive concurrent state synchronization and ultra-low-latency spatial querying to match supply and demand reliably under load.",
     built: [
       {
-        verb: "ENGINEERED",
+        verb: "Engineered",
         body:
-          "a complete ride-hailing architecture from the ground up, utilizing custom matching algorithms to manage fleet inventory in real time.",
+          "a complete ride-hailing architecture from the ground up, with custom matching algorithms to manage fleet inventory in real time.",
       },
       {
-        verb: "SYNCHRONIZED",
+        verb: "Synchronized",
         body:
-          "concurrent state data for 500+ simulated active nodes simultaneously without contention or stale reads.",
+          "concurrent state for 500+ active nodes without contention or stale reads, using carefully designed locking and event boundaries.",
       },
       {
-        verb: "INTEGRATED",
+        verb: "Integrated",
         body:
-          "the Google Maps API for real-time geolocation tracking and dynamic route optimization, achieving sub-150ms spatial data querying across a 50-km geofenced radius.",
+          "the Google Maps API for real-time geolocation tracking and dynamic route optimization, achieving sub-150ms spatial queries across a 50-km geofenced radius.",
       },
     ],
     stack: ["Node.js", "Express", "MongoDB", "Google Maps API"],
     stats: [
-      { label: "Geo Query", value: "<150ms" },
-      { label: "Nodes", value: "500+" },
+      { label: "Geo query", value: "<150ms" },
+      { label: "Active nodes", value: "500+" },
       { label: "Radius", value: "50km" },
-      { label: "Maps", value: "Google" },
+      { label: "Routing", value: "Google Maps" },
     ],
     next: "tradeky",
   },
@@ -131,6 +132,6 @@ export const PROJECTS: Record<string, ProjectDossier> = {
 
 export const PROJECT_LIST: ProjectDossier[] = [
   PROJECTS.tradeky,
-  PROJECTS.regulon,
+  PROJECTS.sannidh,
   PROJECTS.kyte,
 ];
