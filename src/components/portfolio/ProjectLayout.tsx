@@ -1,235 +1,156 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { useScramble } from "@/hooks/useScramble";
-import { useTilt } from "@/hooks/useTilt";
-import ParticleNetwork from "./ParticleNetwork";
 import { PROJECTS, type ProjectDossier } from "@/data/projects";
 
 const ProjectLayout = ({ dossier }: { dossier: ProjectDossier }) => {
-  const [armed, setArmed] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setArmed(true), 80);
-    return () => clearTimeout(t);
-  }, []);
-
-  const back = useScramble("← BACK_TO_TERMINAL", { trigger: armed, speed: 22, delay: 60 });
-  const headerScramble = useScramble(dossier.header, { trigger: armed, speed: 30, delay: 220 });
-  const tagScramble = useScramble(dossier.tag, { trigger: armed, speed: 18, delay: 100 });
-
   const next = PROJECTS[dossier.next];
 
   return (
     <div className="relative pt-24 pb-16">
-      {/* Back dock */}
-      <div className="fixed top-16 left-4 md:left-6 z-30">
+      <div className="max-w-4xl mx-auto px-6 md:px-8 pt-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 border border-border bg-background/80 backdrop-blur-md px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/80 hover:text-primary hover:border-primary hover:cyan-glow transition-all"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
         >
-          <ArrowLeft className="size-3" strokeWidth={2} />
-          {back || "← BACK_TO_TERMINAL"}
+          <ArrowLeft className="size-3.5" strokeWidth={2} />
+          Back to portfolio
         </Link>
       </div>
 
-      {/* Hero band */}
-      <section className="relative overflow-hidden border-b border-border grid-pattern">
-        <div className="absolute inset-0 opacity-30 pointer-events-none">
-          <ParticleNetwork />
+      {/* Editorial header */}
+      <header className="relative max-w-4xl mx-auto px-6 md:px-8 pt-10 pb-16 md:pt-14 md:pb-20">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase">
+            Case Study · {dossier.index}
+          </span>
+          <span className="h-px w-16 bg-gold" />
+          <span className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground uppercase">
+            {dossier.tag}
+          </span>
         </div>
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 40%, transparent 0%, hsl(var(--background)) 85%)",
-          }}
-        />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-24">
-          <div className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase mb-4">
-            HOME / PROJECTS / <span className="text-primary">{dossier.name.toUpperCase()}</span>
+
+        <h1 className="font-serif text-4xl md:text-6xl font-bold tracking-[-0.015em] leading-[1.05] text-foreground">
+          {dossier.header}
+        </h1>
+
+        <div className="gold-rule mt-10 w-24" />
+
+        <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
+          <div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] mr-2">Role</span>
+            <span className="text-foreground">{dossier.role}</span>
           </div>
-          <div className="font-mono text-[10px] tracking-[0.35em] text-primary uppercase mb-6">
-            DOSSIER {dossier.index} // {tagScramble || dossier.tag}
-          </div>
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.95] text-balance">
-            {armed ? headerScramble : dossier.header}
-          </h1>
-          <div className="mt-6 inline-flex items-center gap-3 border border-border-strong px-4 py-2 bg-surface/60">
-            <span className="size-1.5 bg-primary rounded-full animate-pulse" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-foreground/80">
-              ROLE: <span className="text-primary">{dossier.role}</span>
-            </span>
-          </div>
+          {dossier.link && (
+            <a
+              href={dossier.link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-primary hover:text-primary-glow transition-colors"
+            >
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] mr-1 text-muted-foreground">Live</span>
+              {dossier.link.label} <ArrowUpRight className="size-3.5" />
+            </a>
+          )}
+        </div>
+      </header>
+
+      {/* Stat strip */}
+      <section className="max-w-6xl mx-auto px-6 md:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border border border-border">
+          {dossier.stats.map((s) => (
+            <div key={s.label} className="bg-card p-6">
+              <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                {s.label}
+              </div>
+              <div className="mt-3 font-serif text-2xl md:text-3xl font-bold text-primary">
+                {s.value}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Body */}
-      <section className="relative max-w-7xl mx-auto px-6 py-16 md:py-24 grid grid-cols-12 gap-6 md:gap-10">
-        {/* Left col */}
-        <div className="col-span-12 lg:col-span-7 space-y-12">
-          {/* The Problem */}
-          <div>
-            <div className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-4 flex items-center gap-3">
-              <span className="h-px w-8 bg-primary" />
-              THE PROBLEM
-            </div>
-            <p className="font-mono text-sm md:text-base leading-relaxed text-foreground/80">
-              <span className="text-primary mr-2">{">"}</span>
-              {dossier.problem}
-            </p>
+      <section className="max-w-4xl mx-auto px-6 md:px-8 mt-20 md:mt-28 grid grid-cols-1 gap-16">
+        <article>
+          <h2 className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-5">
+            The problem
+          </h2>
+          <p className="font-serif text-xl md:text-[22px] leading-snug text-foreground/90 text-balance">
+            {dossier.problem}
+          </p>
+        </article>
+
+        <article>
+          <h2 className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-6">
+            What I built
+          </h2>
+          <div className="space-y-7">
+            {dossier.built.map((b, i) => (
+              <div key={i} className="grid grid-cols-[auto_1fr] gap-5 md:gap-7">
+                <div className="font-serif text-2xl text-gold tabular-nums leading-none pt-1">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <p className="text-foreground/85 leading-relaxed text-[16px] md:text-[17px]">
+                  <span className="font-serif italic text-primary mr-1.5">{b.verb}</span>{" "}
+                  {b.body}
+                </p>
+              </div>
+            ))}
           </div>
+        </article>
 
-          {/* What I Built — terminal log */}
-          <div className="relative bg-surface/40 border border-border-strong scanline">
-            <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-surface">
-              <div className="flex gap-1.5">
-                <span className="size-2 rounded-full bg-destructive/60" />
-                <span className="size-2 rounded-full bg-terminal-amber/60" />
-                <span className="size-2 rounded-full bg-terminal-green/60" />
-              </div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-                ~/build_log — zsh
-              </span>
-              <span className="font-mono text-[10px] text-muted-foreground">
-                {dossier.built.length} entries
-              </span>
-            </div>
-            <div className="p-5 md:p-7 space-y-6">
-              <div className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-2">
-                $ cat what_i_built.log
-              </div>
-              {dossier.built.map((b, i) => (
-                <BuildEntry key={i} index={i} verb={b.verb} body={b.body} />
-              ))}
-              <div className="font-mono text-[10px] text-foreground/40 pt-2 border-t border-border">
-                <span className="text-primary">$</span> exit 0 — build complete
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right col — sticky */}
-        <aside className="col-span-12 lg:col-span-5">
-          <div className="lg:sticky lg:top-28 space-y-6">
-            {/* Stat block */}
-            <div>
-              <div className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-4 flex items-center gap-3">
-                <span className="h-px w-8 bg-primary" />
-                CORE METRICS
-              </div>
-              <div className="grid grid-cols-2 gap-px bg-border border border-border">
-                {dossier.stats.map((s) => (
-                  <StatTile key={s.label} label={s.label} value={s.value} />
-                ))}
-              </div>
-            </div>
-
-            {/* Tech stack pixel grid */}
-            <div>
-              <div className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-4 flex items-center gap-3">
-                <span className="h-px w-8 bg-primary" />
-                TECH STACK
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {dossier.stack.map((s) => (
-                  <span
-                    key={s}
-                    className="font-mono text-[10px] uppercase tracking-[0.2em] border border-border bg-surface/40 px-3 py-2 text-foreground/75 hover:border-primary hover:text-primary transition-colors"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* CTA */}
-            {dossier.link && (
-              <a
-                href={dossier.link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between gap-3 bg-primary text-primary-foreground px-5 py-4 font-mono text-xs uppercase tracking-[0.2em] font-bold cyan-glow-strong hover:bg-primary-glow transition-all"
+        <article>
+          <h2 className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-5">
+            Technology
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {dossier.stack.map((s) => (
+              <span
+                key={s}
+                className="border border-border bg-card px-3 py-1.5 text-[13px] text-foreground/80"
               >
-                <span>LIVE → {dossier.link.label}</span>
-                <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            )}
+                {s}
+              </span>
+            ))}
           </div>
-        </aside>
+        </article>
+
+        {dossier.link && (
+          <a
+            href={dossier.link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center justify-between gap-4 bg-primary text-primary-foreground px-7 py-5 hover:bg-primary-glow transition-colors"
+          >
+            <span className="font-serif text-lg">Visit {dossier.link.label}</span>
+            <ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+        )}
       </section>
 
-      {/* Next dossier */}
-      <section className="relative border-t border-border bg-surface/20">
+      {/* Next */}
+      <section className="mt-28 border-t border-border bg-surface/50">
         <Link
           to={`/projects/${next.id}`}
-          className="group block max-w-7xl mx-auto px-6 py-12 md:py-16 grid grid-cols-12 gap-6 items-center hover:bg-surface/40 transition-colors"
+          className="group block max-w-6xl mx-auto px-6 md:px-8 py-14 md:py-20 grid grid-cols-12 gap-6 items-center hover:bg-surface transition-colors"
         >
           <div className="col-span-12 md:col-span-3 font-mono text-[10px] tracking-[0.3em] text-primary uppercase">
-            NEXT DOSSIER →
+            Next case →
           </div>
           <div className="col-span-12 md:col-span-7">
             <div className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground uppercase mb-2">
               {next.tag}
             </div>
-            <h3 className="font-display text-3xl md:text-5xl font-bold tracking-tighter group-hover:text-primary transition-colors">
-              {next.name}.
+            <h3 className="font-serif text-3xl md:text-5xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">
+              {next.name}
             </h3>
           </div>
-          <div className="col-span-12 md:col-span-2 md:text-right font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/60 group-hover:text-primary transition-colors">
-            OPEN →
+          <div className="col-span-12 md:col-span-2 md:text-right text-sm text-foreground/60 group-hover:text-primary transition-colors">
+            Open <span className="text-gold">↗</span>
           </div>
         </Link>
       </section>
-    </div>
-  );
-};
-
-const BuildEntry = ({ index, verb, body }: { index: number; verb: string; body: string }) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [seen, setSeen] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => e.isIntersecting && setSeen(true),
-      { threshold: 0.4 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-  const v = useScramble(verb, { trigger: seen, speed: 18 });
-  return (
-    <div ref={ref} className="grid grid-cols-[auto,1fr] gap-4 items-start">
-      <span className="font-mono text-[10px] text-primary tabular-nums pt-1">
-        [{String(index + 1).padStart(2, "0")}]
-      </span>
-      <p className="text-foreground/85 leading-relaxed text-[14px] md:text-[15px]">
-        <span className="font-mono text-primary text-[11px] tracking-[0.2em] uppercase mr-2">
-          {seen ? v : verb}
-        </span>
-        {body}
-      </p>
-    </div>
-  );
-};
-
-const StatTile = ({ label, value }: { label: string; value: string }) => {
-  const tilt = useTilt(4);
-  return (
-    <div className="perspective-1200">
-      <div
-        ref={tilt.ref}
-        onMouseMove={tilt.onMouseMove}
-        onMouseLeave={tilt.onMouseLeave}
-        className="bg-background p-4 md:p-5 hover:bg-surface transition-colors will-change-transform"
-      >
-        <div className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-2">
-          {label}
-        </div>
-        <div className="font-display text-2xl md:text-3xl font-bold text-primary tabular-nums">
-          {value}
-        </div>
-      </div>
     </div>
   );
 };
