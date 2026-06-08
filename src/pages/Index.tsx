@@ -1,21 +1,19 @@
 import Hero from "@/components/portfolio/Hero";
-import BentoGrid from "@/components/portfolio/BentoGrid";
-import EarlyBaseline from "@/components/portfolio/EarlyBaseline";
 import Projects from "@/components/portfolio/Projects";
-import TechMarquee from "@/components/portfolio/TechMarquee";
+import Experience from "@/components/portfolio/Experience";
+import Capabilities from "@/components/portfolio/BentoGrid";
+import TechStack from "@/components/portfolio/TechMarquee";
 import Contact from "@/components/portfolio/Contact";
 
-const Index = () => {
-  return (
-    <main>
-      <Hero />
-      <BentoGrid />
-      <Projects />
-      <EarlyBaseline />
-      <TechMarquee />
-      <Contact />
-    </main>
-  );
-};
+const Index = () => (
+  <main>
+    <Hero />
+    <Projects />
+    <Experience />
+    <Capabilities />
+    <TechStack />
+    <Contact />
+  </main>
+);
 
 export default Index;

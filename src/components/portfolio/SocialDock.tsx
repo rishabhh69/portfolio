@@ -1,31 +1,27 @@
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 
 const LINKS = [
+  { label: "Email", icon: Mail, href: "mailto:rishabhshukla2510@gmail.com" },
   { label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/rishabh-shukla-70260231b/" },
   { label: "GitHub", icon: Github, href: "https://github.com/rishabhh69" },
   { label: "X", icon: Twitter, href: "https://x.com/rishabhh69_" },
 ];
 
-const SocialDock = () => {
-  return (
-    <div className="flex md:justify-end gap-2">
-      {LINKS.map(({ label, icon: Icon, href }) => (
-        <a
-          key={label}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={label}
-          className="group relative size-11 grid place-items-center border border-border bg-surface/40 hover:border-primary hover:cyan-glow transition-all"
-        >
-          <Icon className="size-4 text-foreground/70 group-hover:text-primary transition-colors" strokeWidth={1.5} />
-          <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 font-mono text-[8px] uppercase tracking-[0.25em] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-            {label}
-          </span>
-        </a>
-      ))}
-    </div>
-  );
-};
+const SocialDock = () => (
+  <div className="flex md:justify-end gap-2">
+    {LINKS.map(({ label, icon: Icon, href }) => (
+      <a
+        key={label}
+        href={href}
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        aria-label={label}
+        className="size-10 grid place-items-center border border-border bg-card hover:border-primary hover:text-primary text-foreground/70 transition-colors"
+      >
+        <Icon className="size-4" strokeWidth={1.5} />
+      </a>
+    ))}
+  </div>
+);
 
 export default SocialDock;
