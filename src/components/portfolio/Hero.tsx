@@ -2,10 +2,10 @@ import { useEffect, useRef } from "react";
 
 const Hero = () => {
   const frameRef = useRef<HTMLDivElement | null>(null);
-  const robotRef = useRef<SVGGElement | null>(null);
-  const headRef = useRef<SVGGElement | null>(null);
-  const leftPupilRef = useRef<SVGCircleElement | null>(null);
-  const rightPupilRef = useRef<SVGCircleElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const headWrapRef = useRef<HTMLDivElement | null>(null);
+  const leftPupilRef = useRef<HTMLDivElement | null>(null);
+  const rightPupilRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     let raf = 0;
@@ -18,23 +18,20 @@ const Hero = () => {
       if (!el) return;
       const r = el.getBoundingClientRect();
       const cx = r.left + r.width / 2;
-      const cy = r.top + r.height * 0.34;
-      targetX = Math.max(-1, Math.min(1, (e.clientX - cx) / (r.width * 0.55)));
-      targetY = Math.max(-1, Math.min(1, (e.clientY - cy) / (r.height * 0.45)));
+      const cy = r.top + r.height * 0.3;
+      targetX = Math.max(-1, Math.min(1, (e.clientX - cx) / (window.innerWidth * 0.45)));
+      targetY = Math.max(-1, Math.min(1, (e.clientY - cy) / (window.innerHeight * 0.45)));
     };
     const tick = () => {
-      x += (targetX - x) * 0.12;
-      y += (targetY - y) * 0.12;
-      if (robotRef.current) {
-        robotRef.current.style.transform = `translate(${x * 40}px, ${y * 28}px)`;
-      }
-      if (headRef.current) {
-        headRef.current.style.transform = `translate(${x * 14}px, ${y * 9}px) rotate(${x * 5}deg)`;
+      x += (targetX - x) * 0.1;
+      y += (targetY - y) * 0.1;
+      if (headWrapRef.current) {
+        headWrapRef.current.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 7}deg)`;
       }
       if (leftPupilRef.current && rightPupilRef.current) {
-        const pupilTransform = `translate(${x * 10}px, ${y * 7}px)`;
-        leftPupilRef.current.style.transform = pupilTransform;
-        rightPupilRef.current.style.transform = pupilTransform;
+        const t = `translate(calc(-50% + ${x * 6}px), calc(-50% + ${y * 5}px))`;
+        leftPupilRef.current.style.transform = t;
+        rightPupilRef.current.style.transform = t;
       }
       raf = requestAnimationFrame(tick);
     };
