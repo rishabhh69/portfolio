@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 const Hero = () => {
   const frameRef = useRef<HTMLDivElement | null>(null);
+  const robotRef = useRef<SVGGElement | null>(null);
   const headRef = useRef<SVGGElement | null>(null);
   const leftPupilRef = useRef<SVGCircleElement | null>(null);
   const rightPupilRef = useRef<SVGCircleElement | null>(null);
@@ -24,6 +25,9 @@ const Hero = () => {
     const tick = () => {
       x += (targetX - x) * 0.12;
       y += (targetY - y) * 0.12;
+      if (robotRef.current) {
+        robotRef.current.style.transform = `translate(${x * 40}px, ${y * 28}px)`;
+      }
       if (headRef.current) {
         headRef.current.style.transform = `translate(${x * 14}px, ${y * 9}px) rotate(${x * 5}deg)`;
       }
@@ -137,6 +141,7 @@ const Hero = () => {
                   </filter>
                 </defs>
 
+                <g ref={robotRef} style={{ transformBox: "fill-box", transformOrigin: "center" }}>
                 <g id="robot-body">
                   <path d="M157 397 C167 334 205 300 260 300 C315 300 353 334 363 397 L394 642 H126 Z" fill="hsl(var(--surface) / 0.82)" stroke="hsl(var(--border))" strokeWidth="3" />
                   <path d="M178 418 C186 370 216 346 260 346 C304 346 334 370 342 418 L360 618 H160 Z" fill="url(#robotMetal)" opacity="0.72" />
@@ -164,6 +169,7 @@ const Hero = () => {
                   <path d="M174 188 H148 V230 H174 M346 188 H372 V230 H346" fill="none" stroke="hsl(var(--primary) / 0.6)" strokeWidth="4" />
                   <path d="M260 70 V38" stroke="hsl(var(--primary))" strokeWidth="4" strokeLinecap="round" />
                   <circle cx="260" cy="32" r="8" fill="hsl(var(--gold))" filter="url(#robotGlow)" />
+                </g>
                 </g>
               </svg>
             </div>
