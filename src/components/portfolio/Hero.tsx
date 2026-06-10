@@ -104,71 +104,58 @@ const Hero = () => {
         {/* Sidebar: cursor-tracking robot */}
         <aside className="col-span-12 lg:col-span-4 lg:pt-4 animate-fade-up" style={{ animationDelay: "120ms" }}>
           <div className="relative bg-card border border-border shadow-soft p-1">
-            <div ref={frameRef} className="relative bg-background border border-border aspect-[3/4] overflow-hidden">
+            <div ref={frameRef} className="relative bg-background border border-border aspect-[3/4] overflow-hidden" style={{ perspective: "900px" }}>
+              <div
+                ref={headWrapRef}
+                className="absolute inset-0 will-change-transform"
+                style={{ transition: "transform 80ms linear" }}
+              >
+                <video
+                  ref={videoRef}
+                  src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{ objectPosition: "70% 28%", transform: "scale(1.08)" }}
+                />
+                {/* Pupil overlays positioned over the robot's eyes */}
+                <div
+                  ref={leftPupilRef}
+                  className="absolute rounded-full bg-primary"
+                  style={{
+                    left: "42%",
+                    top: "31%",
+                    width: "10px",
+                    height: "10px",
+                    transform: "translate(-50%, -50%)",
+                    mixBlendMode: "screen",
+                    boxShadow: "0 0 10px hsl(var(--primary) / 0.9)",
+                  }}
+                />
+                <div
+                  ref={rightPupilRef}
+                  className="absolute rounded-full bg-primary"
+                  style={{
+                    left: "58%",
+                    top: "31%",
+                    width: "10px",
+                    height: "10px",
+                    transform: "translate(-50%, -50%)",
+                    mixBlendMode: "screen",
+                    boxShadow: "0 0 10px hsl(var(--primary) / 0.9)",
+                  }}
+                />
+              </div>
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
-                    "radial-gradient(circle at 50% 26%, hsl(var(--primary) / 0.10), transparent 38%), linear-gradient(180deg, hsl(var(--surface) / 0.6), hsl(var(--background) / 0.95))",
+                    "radial-gradient(ellipse at 50% 30%, transparent 50%, hsl(var(--background) / 0.4) 100%)",
                 }}
               />
-              <svg
-                viewBox="0 0 520 680"
-                role="img"
-                aria-label="Cursor-tracking robot"
-                className="absolute inset-x-[-8%] bottom-[-4%] h-[108%] w-[116%]"
-              >
-                <defs>
-                  <linearGradient id="robotMetal" x1="0" x2="1" y1="0" y2="1">
-                    <stop offset="0" stopColor="hsl(var(--foreground) / 0.85)" />
-                    <stop offset="0.48" stopColor="hsl(var(--muted-foreground) / 0.45)" />
-                    <stop offset="1" stopColor="hsl(var(--surface) / 0.95)" />
-                  </linearGradient>
-                  <linearGradient id="robotCore" x1="0" x2="1">
-                    <stop offset="0" stopColor="hsl(var(--primary) / 0.2)" />
-                    <stop offset="0.52" stopColor="hsl(var(--primary) / 0.95)" />
-                    <stop offset="1" stopColor="hsl(var(--gold) / 0.4)" />
-                  </linearGradient>
-                  <filter id="robotGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="4" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                </defs>
-
-                <g ref={robotRef} style={{ transformBox: "fill-box", transformOrigin: "center" }}>
-                <g id="robot-body">
-                  <path d="M157 397 C167 334 205 300 260 300 C315 300 353 334 363 397 L394 642 H126 Z" fill="hsl(var(--surface) / 0.82)" stroke="hsl(var(--border))" strokeWidth="3" />
-                  <path d="M178 418 C186 370 216 346 260 346 C304 346 334 370 342 418 L360 618 H160 Z" fill="url(#robotMetal)" opacity="0.72" />
-                  <path d="M221 432 H299 L313 555 H207 Z" fill="hsl(var(--background) / 0.86)" stroke="hsl(var(--border))" strokeWidth="2" />
-                  <path d="M235 462 H285" stroke="url(#robotCore)" strokeWidth="5" strokeLinecap="round" filter="url(#robotGlow)" />
-                  <circle cx="260" cy="520" r="24" fill="hsl(var(--background))" stroke="hsl(var(--primary))" strokeWidth="3" />
-                  <circle cx="260" cy="520" r="9" fill="hsl(var(--primary))" filter="url(#robotGlow)" />
-                  <path d="M148 440 L76 495 L102 536 L165 497" fill="hsl(var(--surface) / 0.75)" stroke="hsl(var(--border))" strokeWidth="3" />
-                  <path d="M372 440 L444 495 L418 536 L355 497" fill="hsl(var(--surface) / 0.75)" stroke="hsl(var(--border))" strokeWidth="3" />
-                </g>
-
-                <g
-                  ref={headRef}
-                  style={{ transformBox: "fill-box", transformOrigin: "center" }}
-                >
-                  <path d="M192 126 C192 92 220 70 260 70 C300 70 328 92 328 126 V140 H192 Z" fill="hsl(var(--surface) / 0.78)" stroke="hsl(var(--border))" strokeWidth="3" />
-                  <path d="M156 142 C156 108 184 82 218 82 H302 C336 82 364 108 364 142 V236 C364 272 335 300 300 300 H220 C185 300 156 272 156 236 Z" fill="url(#robotMetal)" stroke="hsl(var(--border-strong))" strokeWidth="4" />
-                  <path d="M181 158 C181 128 204 109 231 109 H289 C316 109 339 128 339 158 V220 C339 252 314 276 282 276 H238 C206 276 181 252 181 220 Z" fill="hsl(var(--background) / 0.9)" stroke="hsl(var(--primary) / 0.4)" strokeWidth="2" />
-                  <rect x="196" y="172" width="128" height="52" rx="24" fill="hsl(var(--surface) / 0.82)" stroke="hsl(var(--primary) / 0.5)" strokeWidth="2" />
-                  <circle cx="228" cy="198" r="17" fill="hsl(var(--background))" stroke="hsl(var(--primary))" strokeWidth="3" />
-                  <circle cx="292" cy="198" r="17" fill="hsl(var(--background))" stroke="hsl(var(--primary))" strokeWidth="3" />
-                  <circle ref={leftPupilRef} cx="228" cy="198" r="7" fill="hsl(var(--primary))" filter="url(#robotGlow)" style={{ transformBox: "fill-box", transformOrigin: "center" }} />
-                  <circle ref={rightPupilRef} cx="292" cy="198" r="7" fill="hsl(var(--primary))" filter="url(#robotGlow)" style={{ transformBox: "fill-box", transformOrigin: "center" }} />
-                  <path d="M228 244 H292" stroke="hsl(var(--foreground) / 0.7)" strokeWidth="4" strokeLinecap="square" />
-                  <path d="M174 188 H148 V230 H174 M346 188 H372 V230 H346" fill="none" stroke="hsl(var(--primary) / 0.6)" strokeWidth="4" />
-                  <path d="M260 70 V38" stroke="hsl(var(--primary))" strokeWidth="4" strokeLinecap="round" />
-                  <circle cx="260" cy="32" r="8" fill="hsl(var(--gold))" filter="url(#robotGlow)" />
-                </g>
-                </g>
-              </svg>
             </div>
             <div className="flex items-center justify-between px-4 py-3 border-t border-border">
               <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
