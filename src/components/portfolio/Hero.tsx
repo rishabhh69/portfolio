@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 const Hero = () => {
   const frameRef = useRef<HTMLDivElement | null>(null);
+  const robotRef = useRef<SVGGElement | null>(null);
   const headRef = useRef<SVGGElement | null>(null);
   const leftPupilRef = useRef<SVGCircleElement | null>(null);
   const rightPupilRef = useRef<SVGCircleElement | null>(null);
@@ -24,6 +25,9 @@ const Hero = () => {
     const tick = () => {
       x += (targetX - x) * 0.12;
       y += (targetY - y) * 0.12;
+      if (robotRef.current) {
+        robotRef.current.style.transform = `translate(${x * 40}px, ${y * 28}px)`;
+      }
       if (headRef.current) {
         headRef.current.style.transform = `translate(${x * 14}px, ${y * 9}px) rotate(${x * 5}deg)`;
       }
