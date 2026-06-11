@@ -113,11 +113,14 @@ const Hero = () => {
                 <video
                   ref={videoRef}
                   src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4"
-                  autoPlay
                   muted
-                  loop
                   playsInline
                   preload="auto"
+                  onLoadedData={(e) => {
+                    const v = e.currentTarget;
+                    v.currentTime = 0.1;
+                    v.pause();
+                  }}
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ objectPosition: "70% 28%", transform: "scale(1.08)" }}
                 />
