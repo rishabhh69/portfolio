@@ -1,4 +1,6 @@
 import { useEffect, useRef } from "react";
+import robotBody from "@/assets/robot-body.jpg";
+import robotHead from "@/assets/robot-head.png";
 
 const Hero = () => {
   const frameRef = useRef<HTMLDivElement | null>(null);
@@ -25,7 +27,7 @@ const Hero = () => {
       x += (targetX - x) * 0.14;
       y += (targetY - y) * 0.14;
       if (headWrapRef.current) {
-        headWrapRef.current.style.transform = `perspective(700px) translate(${x * 14}px, ${y * 8}px) rotateY(${x * 18}deg) rotateX(${-y * 12}deg)`;
+        headWrapRef.current.style.transform = `perspective(700px) translate3d(${x * 14}px, ${y * 8}px, 0) rotateY(${x * 26}deg) rotateX(${-y * 14}deg) rotateZ(${x * 2.5}deg)`;
       }
       if (leftPupilRef.current && rightPupilRef.current) {
         const t = `translate(calc(-50% + ${x * 9}px), calc(-50% + ${y * 7}px))`;
@@ -104,50 +106,38 @@ const Hero = () => {
         <aside className="col-span-12 lg:col-span-4 lg:pt-4 animate-fade-up" style={{ animationDelay: "120ms" }}>
           <div className="relative bg-card border border-border shadow-soft p-1">
             <div ref={frameRef} className="relative bg-background border border-border aspect-[3/4] overflow-hidden" style={{ perspective: "900px" }}>
-              {/* Base still: full robot body */}
-              <video
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4"
-                muted
-                playsInline
-                preload="auto"
-                onLoadedData={(e) => {
-                  const v = e.currentTarget;
-                  v.currentTime = 0.1;
-                  v.pause();
-                }}
+              {/* Headless body — static */}
+              <img
+                src={robotBody}
+                alt="Figure in a grey blazer"
                 className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: "70% 28%", transform: "scale(1.18)" }}
+                draggable={false}
               />
-              {/* Head-only layer: same video, clipped to head region, transforms with cursor */}
+              {/* TV head — cut out, swivels toward the cursor */}
               <div
                 ref={headWrapRef}
-                className="absolute inset-0 will-change-transform pointer-events-none"
+                className="absolute will-change-transform pointer-events-none"
                 style={{
+                  left: "17.87%",
+                  top: "20.33%",
+                  width: "61%",
+                  height: "43.9%",
                   transformStyle: "preserve-3d",
-                  transformOrigin: "50% 55%",
-                  clipPath: "ellipse(32% 26% at 50% 30%)",
-                  WebkitClipPath: "ellipse(32% 26% at 50% 30%)",
+                  transformOrigin: "50% 95%",
                 }}
               >
-                <video
-                  src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4"
-                  muted
-                  playsInline
-                  preload="auto"
-                  onLoadedData={(e) => {
-                    const v = e.currentTarget;
-                    v.currentTime = 0.1;
-                    v.pause();
-                  }}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  style={{ objectPosition: "70% 28%", transform: "scale(1.18)" }}
+                <img
+                  src={robotHead}
+                  alt="Retro TV monitor head"
+                  className="absolute inset-0 w-full h-full"
+                  draggable={false}
                 />
                 <div
                   ref={leftPupilRef}
                   className="absolute rounded-full bg-primary"
                   style={{
-                    left: "42%",
-                    top: "31%",
+                    left: "22.9%",
+                    top: "38.8%",
                     width: "10px",
                     height: "10px",
                     transform: "translate(-50%, -50%)",
@@ -159,8 +149,8 @@ const Hero = () => {
                   ref={rightPupilRef}
                   className="absolute rounded-full bg-primary"
                   style={{
-                    left: "58%",
-                    top: "31%",
+                    left: "49.6%",
+                    top: "37.8%",
                     width: "10px",
                     height: "10px",
                     transform: "translate(-50%, -50%)",
