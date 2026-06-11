@@ -125,8 +125,8 @@ const Hero = () => {
                 style={{
                   transformStyle: "preserve-3d",
                   transformOrigin: "50% 55%",
-                  clipPath: "ellipse(22% 18% at 50% 32%)",
-                  WebkitClipPath: "ellipse(22% 18% at 50% 32%)",
+                  clipPath: "ellipse(32% 26% at 50% 30%)",
+                  WebkitClipPath: "ellipse(32% 26% at 50% 30%)",
                 }}
               >
                 <video
