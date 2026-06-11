@@ -55,7 +55,7 @@ const Hero = () => {
             </span>
             <span className="h-px flex-1 max-w-[120px] bg-gold" />
             <span className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground uppercase">
-              Bengaluru, IN
+              NOIDA, IN
             </span>
           </div>
 
@@ -169,7 +169,7 @@ const Hero = () => {
             </div>
             <div className="flex items-center justify-between px-4 py-3 border-t border-border">
               <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
-                Bengaluru, IN
+                NOIDA, IN
               </span>
               <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] uppercase text-primary">
                 <span className="size-1.5 rounded-full bg-primary animate-pulse" />
