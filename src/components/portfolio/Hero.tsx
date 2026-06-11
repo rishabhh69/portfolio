@@ -23,13 +23,13 @@ const Hero = () => {
       targetY = Math.max(-1, Math.min(1, (e.clientY - cy) / (window.innerHeight * 0.45)));
     };
     const tick = () => {
-      x += (targetX - x) * 0.1;
-      y += (targetY - y) * 0.1;
+      x += (targetX - x) * 0.14;
+      y += (targetY - y) * 0.14;
       if (headWrapRef.current) {
-        headWrapRef.current.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 7}deg)`;
+        headWrapRef.current.style.transform = `perspective(700px) translate(${x * 26}px, ${y * 16}px) rotateY(${x * 22}deg) rotateX(${-y * 14}deg)`;
       }
       if (leftPupilRef.current && rightPupilRef.current) {
-        const t = `translate(calc(-50% + ${x * 6}px), calc(-50% + ${y * 5}px))`;
+        const t = `translate(calc(-50% + ${x * 9}px), calc(-50% + ${y * 7}px))`;
         leftPupilRef.current.style.transform = t;
         rightPupilRef.current.style.transform = t;
       }
@@ -108,7 +108,7 @@ const Hero = () => {
               <div
                 ref={headWrapRef}
                 className="absolute inset-0 will-change-transform"
-                style={{ transition: "transform 80ms linear" }}
+                style={{ transformStyle: "preserve-3d" }}
               >
                 <video
                   ref={videoRef}
@@ -122,7 +122,7 @@ const Hero = () => {
                     v.pause();
                   }}
                   className="absolute inset-0 w-full h-full object-cover"
-                  style={{ objectPosition: "70% 28%", transform: "scale(1.08)" }}
+                  style={{ objectPosition: "70% 28%", transform: "scale(1.18)" }}
                 />
                 {/* Pupil overlays positioned over the robot's eyes */}
                 <div
