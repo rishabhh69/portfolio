@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 
 const Hero = () => {
   const frameRef = useRef<HTMLDivElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
   const headWrapRef = useRef<HTMLDivElement | null>(null);
   const leftPupilRef = useRef<HTMLDivElement | null>(null);
   const rightPupilRef = useRef<HTMLDivElement | null>(null);
@@ -26,7 +25,7 @@ const Hero = () => {
       x += (targetX - x) * 0.14;
       y += (targetY - y) * 0.14;
       if (headWrapRef.current) {
-        headWrapRef.current.style.transform = `perspective(700px) translate(${x * 26}px, ${y * 16}px) rotateY(${x * 22}deg) rotateX(${-y * 14}deg)`;
+        headWrapRef.current.style.transform = `perspective(700px) translate(${x * 14}px, ${y * 8}px) rotateY(${x * 18}deg) rotateX(${-y * 12}deg)`;
       }
       if (leftPupilRef.current && rightPupilRef.current) {
         const t = `translate(calc(-50% + ${x * 9}px), calc(-50% + ${y * 7}px))`;
@@ -105,13 +104,32 @@ const Hero = () => {
         <aside className="col-span-12 lg:col-span-4 lg:pt-4 animate-fade-up" style={{ animationDelay: "120ms" }}>
           <div className="relative bg-card border border-border shadow-soft p-1">
             <div ref={frameRef} className="relative bg-background border border-border aspect-[3/4] overflow-hidden" style={{ perspective: "900px" }}>
+              {/* Base still: full robot body */}
+              <video
+                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4"
+                muted
+                playsInline
+                preload="auto"
+                onLoadedData={(e) => {
+                  const v = e.currentTarget;
+                  v.currentTime = 0.1;
+                  v.pause();
+                }}
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: "70% 28%", transform: "scale(1.18)" }}
+              />
+              {/* Head-only layer: same video, clipped to head region, transforms with cursor */}
               <div
                 ref={headWrapRef}
-                className="absolute inset-0 will-change-transform"
-                style={{ transformStyle: "preserve-3d" }}
+                className="absolute inset-0 will-change-transform pointer-events-none"
+                style={{
+                  transformStyle: "preserve-3d",
+                  transformOrigin: "50% 55%",
+                  clipPath: "ellipse(22% 18% at 50% 32%)",
+                  WebkitClipPath: "ellipse(22% 18% at 50% 32%)",
+                }}
               >
                 <video
-                  ref={videoRef}
                   src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4"
                   muted
                   playsInline
@@ -124,7 +142,6 @@ const Hero = () => {
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ objectPosition: "70% 28%", transform: "scale(1.18)" }}
                 />
-                {/* Pupil overlays positioned over the robot's eyes */}
                 <div
                   ref={leftPupilRef}
                   className="absolute rounded-full bg-primary"
