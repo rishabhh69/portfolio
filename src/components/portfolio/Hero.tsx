@@ -1,46 +1,65 @@
 import { useEffect, useRef } from "react";
-import robotBody from "@/assets/robot-body.jpg";
-import robotHead from "@/assets/robot-head.png";
+
+const ROBOT_VIDEO_URL =
+  "https://d8j0ntlcm91z4.cloudfront.net/generated-videos/d8a51f3d-8fa2-46e3-9f82-1a89c8e1c4e0.mp4";
 
 const Hero = () => {
-  const frameRef = useRef<HTMLDivElement | null>(null);
-  const headWrapRef = useRef<HTMLDivElement | null>(null);
-  const leftPupilRef = useRef<HTMLDivElement | null>(null);
-  const rightPupilRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    let raf = 0;
-    let x = 0;
-    let y = 0;
-    let targetX = 0;
-    let targetY = 0;
+    const video = videoRef.current;
+    if (!video) return;
+
+    let targetTime = 0;
+    let seeking = false;
+    let ready = false;
+
+    const onMeta = () => {
+      ready = true;
+      // Park the head in the middle position at first
+      targetTime = video.duration / 2;
+      try {
+        video.currentTime = targetTime;
+      } catch {}
+    };
+
+    const seekToTarget = () => {
+      if (!ready || seeking) return;
+      const clamped = Math.max(0, Math.min(video.duration - 0.01, targetTime));
+      if (Math.abs(clamped - video.currentTime) < 0.01) return;
+      seeking = true;
+      try {
+        video.currentTime = clamped;
+      } catch {
+        seeking = false;
+      }
+    };
+
+    const onSeeked = () => {
+      seeking = false;
+      // If target moved while we were seeking, chase it
+      if (Math.abs(targetTime - video.currentTime) > 0.01) seekToTarget();
+    };
+
     const onMove = (e: MouseEvent) => {
-      const el = frameRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height * 0.3;
-      targetX = Math.max(-1, Math.min(1, (e.clientX - cx) / (window.innerWidth * 0.45)));
-      targetY = Math.max(-1, Math.min(1, (e.clientY - cy) / (window.innerHeight * 0.45)));
+      if (!ready) return;
+      // Map cursor X across the viewport to the full video timeline.
+      // Center cursor → middle frame (head facing forward).
+      const t = e.clientX / window.innerWidth; // 0..1
+      targetTime = t * video.duration;
+      seekToTarget();
     };
-    const tick = () => {
-      x += (targetX - x) * 0.14;
-      y += (targetY - y) * 0.14;
-      if (headWrapRef.current) {
-        headWrapRef.current.style.transform = `perspective(700px) translate3d(${x * 14}px, ${y * 8}px, 0) rotateY(${x * 26}deg) rotateX(${-y * 14}deg) rotateZ(${x * 2.5}deg)`;
-      }
-      if (leftPupilRef.current && rightPupilRef.current) {
-        const t = `translate(calc(-50% + ${x * 9}px), calc(-50% + ${y * 7}px))`;
-        leftPupilRef.current.style.transform = t;
-        rightPupilRef.current.style.transform = t;
-      }
-      raf = requestAnimationFrame(tick);
-    };
+
+    video.addEventListener("loadedmetadata", onMeta);
+    video.addEventListener("seeked", onSeeked);
     window.addEventListener("mousemove", onMove);
-    raf = requestAnimationFrame(tick);
+
+    if (video.readyState >= 1) onMeta();
+
     return () => {
+      video.removeEventListener("loadedmetadata", onMeta);
+      video.removeEventListener("seeked", onSeeked);
       window.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
     };
   }, []);
 
@@ -105,60 +124,17 @@ const Hero = () => {
         {/* Sidebar: cursor-tracking robot */}
         <aside className="col-span-12 lg:col-span-4 lg:pt-4 animate-fade-up" style={{ animationDelay: "120ms" }}>
           <div className="relative bg-card border border-border shadow-soft p-1">
-            <div ref={frameRef} className="relative bg-background border border-border aspect-[3/4] overflow-hidden" style={{ perspective: "900px" }}>
-              {/* Headless body — static */}
-              <img
-                src={robotBody}
-                alt="Figure in a grey blazer"
-                className="absolute inset-0 w-full h-full object-cover"
-                draggable={false}
+            <div className="relative bg-background border border-border aspect-[3/4] overflow-hidden">
+              <video
+                ref={videoRef}
+                src={ROBOT_VIDEO_URL}
+                muted
+                playsInline
+                preload="auto"
+                crossOrigin="anonymous"
+                className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                style={{ objectPosition: "70% 30%" }}
               />
-              {/* TV head — cut out, swivels toward the cursor */}
-              <div
-                ref={headWrapRef}
-                className="absolute will-change-transform pointer-events-none"
-                style={{
-                  left: "17.87%",
-                  top: "20.33%",
-                  width: "61%",
-                  height: "43.9%",
-                  transformStyle: "preserve-3d",
-                  transformOrigin: "50% 95%",
-                }}
-              >
-                <img
-                  src={robotHead}
-                  alt="Retro TV monitor head"
-                  className="absolute inset-0 w-full h-full"
-                  draggable={false}
-                />
-                <div
-                  ref={leftPupilRef}
-                  className="absolute rounded-full bg-primary"
-                  style={{
-                    left: "22.9%",
-                    top: "38.8%",
-                    width: "10px",
-                    height: "10px",
-                    transform: "translate(-50%, -50%)",
-                    mixBlendMode: "screen",
-                    boxShadow: "0 0 10px hsl(var(--primary) / 0.9)",
-                  }}
-                />
-                <div
-                  ref={rightPupilRef}
-                  className="absolute rounded-full bg-primary"
-                  style={{
-                    left: "49.6%",
-                    top: "37.8%",
-                    width: "10px",
-                    height: "10px",
-                    transform: "translate(-50%, -50%)",
-                    mixBlendMode: "screen",
-                    boxShadow: "0 0 10px hsl(var(--primary) / 0.9)",
-                  }}
-                />
-              </div>
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
