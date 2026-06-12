@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const ROBOT_VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/generated-videos/d8a51f3d-8fa2-46e3-9f82-1a89c8e1c4e0.mp4";
+const ROBOT_VIDEO_URL = "/robot.mp4";
 
 const Hero = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -131,7 +130,6 @@ const Hero = () => {
                 muted
                 playsInline
                 preload="auto"
-                crossOrigin="anonymous"
                 className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                 style={{ objectPosition: "70% 30%" }}
               />
