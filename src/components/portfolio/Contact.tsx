@@ -66,7 +66,7 @@ const Contact = () => (
         </div>
         <div className="mt-5 text-[11px] uppercase tracking-[0.25em] text-muted-foreground font-mono flex items-center gap-2">
           <span className="size-1.5 rounded-full bg-primary animate-pulse" />
-          Bengaluru, IN · IST (UTC+5:30)
+          NOIDA, IN · IST (UTC+5:30)
         </div>
       </div>
     </div>
