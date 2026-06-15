@@ -63,7 +63,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative w-full pt-32 md:pt-40 pb-20 md:pb-28 px-6 md:px-8 paper-texture">
+    <section className="relative w-full pt-32 md:pt-40 pb-20 md:pb-28 px-6 md:px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 lg:gap-12 items-start">
         {/* Masthead */}
         <div className="col-span-12 lg:col-span-8 animate-fade-up">
@@ -103,19 +103,19 @@ const Hero = () => {
           <div className="mt-12 flex flex-wrap items-center gap-4">
             <a
               href="#work"
-              className="group inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 text-sm font-medium tracking-tight hover:bg-primary-glow transition-colors"
+              className="btn-sheen btn-lift group inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 text-sm font-medium tracking-tight hover:bg-primary-glow"
             >
-              View selected work
-              <span className="transition-transform group-hover:translate-x-1">→</span>
+              <span>View selected work</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
             </a>
             <a
               href="/rishabh-shukla-cv.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 border border-border-strong text-foreground px-6 py-3.5 text-sm font-medium tracking-tight hover:border-primary hover:text-primary transition-colors"
+              className="btn-sheen btn-lift group inline-flex items-center gap-2 border border-border-strong text-foreground px-6 py-3.5 text-sm font-medium tracking-tight hover:border-primary hover:text-primary bg-card/40 backdrop-blur-sm"
             >
-              Download résumé
-              <span className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+              <span>Download résumé</span>
+              <span className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
             </a>
           </div>
         </div>
